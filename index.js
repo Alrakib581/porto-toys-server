@@ -41,6 +41,16 @@ async function run() {
         res.send(result);
     })
     //photo gallery collection code.
+    const footerCollection = client.db('portoToys').collection('footerInfo');
+    app.get('/footer', async(req,res)=>{
+        const cursor = footerCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+
+    })
+    //website footer collection code.
+
+    //website footer collection code.
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
