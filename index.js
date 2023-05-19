@@ -24,6 +24,15 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    //photo gallery collection code.
+
+    const photoCollection = client.db('portoToys').collection('gallery');
+    app.get('/gallery', async(req,res)=>{
+        const cursor = photoCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+    //photo gallery collection code.
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
