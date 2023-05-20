@@ -41,6 +41,8 @@ async function run() {
         res.send(result);
     })
     //photo gallery collection code.
+
+    //website footer collection code.
     const footerCollection = client.db('portoToys').collection('footerInfo');
     app.get('/footer', async(req,res)=>{
         const cursor = footerCollection.find();
@@ -48,9 +50,31 @@ async function run() {
         res.send(result);
 
     })
-    //website footer collection code.
 
     //website footer collection code.
+
+    //all toys collection code.
+    const toysCollection = client.db('toysDb').collection('toys');
+
+    //all toys collection code.
+
+    //get toy data.
+    app.get('/toys', async(req, res)=>{
+      const cursor = toysCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+    //get toy data.
+
+    //post toy data from client to server.
+    app.post('/toys', async(req, res)=>{
+      const newToys = req.body;
+      console.log(newToys);
+      const result = await toysCollection.insertOne(newToys);
+      res.send(result);
+    })
+
+    //post toy data from client to server.
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
