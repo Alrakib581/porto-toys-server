@@ -60,11 +60,19 @@ async function run() {
 
     //get toy data.
     app.get('/toys', async(req, res)=>{
-      const cursor = toysCollection.find();
+      const cursor = toysCollection.find().limit(20);
       const result = await cursor.toArray();
       res.send(result);
     })
     //get toy data.
+    app.get('/stoys', async(req, res)=>{
+      let query = {};
+      if(req.query?.subCategory){
+        query = {subCategory: req.query.subCategory}
+      }
+      const result = await toysCollection.find(query).toArray();
+      res.send(result);
+    })
 
     //post toy data from client to server.
     app.post('/toys', async(req, res)=>{
@@ -126,7 +134,7 @@ async function run() {
       res.send(result);
     })
     //loade data based on user email
-    
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
