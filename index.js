@@ -29,7 +29,7 @@ const client = new MongoClient(uri, {
 });
 
 async function run() {
-    await client.connect();
+     client.connect();
   try {
     // Connect the client to the server	(optional starting in v4.7)
     //photo gallery collection code.
@@ -64,11 +64,22 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     })
+    
     //get toy data.
     app.get('/stoys', async(req, res)=>{
       let query = {};
       if(req.query?.subCategory){
         query = {subCategory: req.query.subCategory}
+      }
+      const result = await toysCollection.find(query).toArray();
+      res.send(result);
+    })
+
+    app.get('/toyname', async(req, res)=>{
+      // console.log(req.query.toyName)
+      let query = {};
+      if(req.query?.toyName){
+        query = {toyName: req.query.toyName}
       }
       const result = await toysCollection.find(query).toArray();
       res.send(result);
